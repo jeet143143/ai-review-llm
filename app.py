@@ -2,10 +2,8 @@ import streamlit as st
 from summarizer_utils import summarize_reviews
 from mongodb_connection import get_reviews, collection
 
-# Page Config
 st.set_page_config(page_title="AI Review Summarizer", layout="wide")
 
-# ----------------- CUSTOM CSS -----------------
 st.markdown("""
     <style>
     html, body, [class*="css"] {
@@ -59,16 +57,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ----------------- PAGE TITLE -----------------
 st.markdown("<div class='title-text'>AI-Powered Review Summarizer</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtext'>Fetch customer reviews from the database and generate summaries using AI</div>", unsafe_allow_html=True)
 
-# ----------------- SUMMARIZE REVIEWS -----------------
 if st.button("Generate AI Summary", use_container_width=True):
     reviews = get_reviews()
 
     if reviews:
-        # Display Reviews
+
         st.markdown("### :green_book: Customer Reviews")
         for i, review in enumerate(reviews, 1):
             st.markdown(f"""
@@ -77,7 +73,6 @@ if st.button("Generate AI Summary", use_container_width=True):
                 </div>
             """, unsafe_allow_html=True)
 
-        # Generate Summary
         st.markdown("### :robot_face: AI-Generated Summary")
         summary = summarize_reviews(reviews)
         st.markdown(f"<div class='summary-box'>{summary}</div>", unsafe_allow_html=True)
@@ -85,7 +80,6 @@ if st.button("Generate AI Summary", use_container_width=True):
     else:
         st.warning("No reviews found in the database.")
 
-# ----------------- ADD NEW REVIEW -----------------
 st.markdown("---")
 st.markdown("### :memo: Add a New Review")
 
